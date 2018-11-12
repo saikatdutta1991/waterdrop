@@ -104,6 +104,9 @@ let shopSchema = new mongoose.Schema({
     updated_at: { type: Date, default: Date.now }
 })
 
+shopSchema.set('toObject', { virtuals: true });
+shopSchema.set('toJSON', { virtuals: true });
+
 
 
 
@@ -153,6 +156,13 @@ shopSchema.methods.toJSON = function () {
     delete obj.password;
     return obj;
 }
+
+
+
+/** adding full mobile number to response */
+shopSchema.virtual('fullmobileno').get(function () {
+    return this.mobileno.country_code + this.mobileno.number
+})
 
 
 
