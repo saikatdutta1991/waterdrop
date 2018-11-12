@@ -1,3 +1,8 @@
+/** importing dependent modules */
+const multer = require('multer')
+const path = require('path')
+
+
 /** create formated api json response */
 exports.createResponse = function (success, type, message, data, stackTrace) {
 
@@ -44,3 +49,17 @@ exports.CustomError = class CustomErr extends Error {
     }
 
 }
+
+
+/** 
+ * shop image destination and file name generation
+ */
+exports.shopimageStorage = multer({
+    storage: multer.diskStorage({
+        destination: 'public/uploads/shops/images',
+        filename: (req, file, cb) => {
+            var filename = `${file.fieldname}_${Date.now()}_${path.extname(file.originalname)}`
+            cb(null, filename)
+        }
+    })
+}).single('image');

@@ -5,7 +5,8 @@ let stagingConfig = {
     dbname: 'waterboy',
     dbhost: '127.0.0.1',
     dbport: 27017,
-    jwt_secret: 'secret'
+    jwt_secret: 'secret',
+    base_url: 'http://localhost:3000/'
 }
 
 let prodConfig = {
@@ -13,7 +14,8 @@ let prodConfig = {
     dbname: 'waterboy',
     dbhost: '127.0.0.1',
     dbport: 27017,
-    jwt_secret: 'secret'
+    jwt_secret: 'secret',
+    base_url: 'http://localhost:3000/'
 }
 
 module.exports = (() => {

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs')
+const appConfig = require('../configs/app')
 
 /** shop schema */
 let shopSchema = new mongoose.Schema({
@@ -96,7 +97,7 @@ let shopSchema = new mongoose.Schema({
         minlength: [6, 'Password must be between 6-20 characters'],
         maxlength: [20, 'Password must be between 6-20 characters']
     },
-    shop_image_url: {
+    shop_image_path: {
         type: String,
         default: ''
     },
@@ -154,6 +155,7 @@ shopSchema.statics.verifyPassword = function (password, hash) {
 shopSchema.methods.toJSON = function () {
     var obj = this.toObject();
     delete obj.password;
+    delete obj.shop_image_path;
     return obj;
 }
 
@@ -162,6 +164,13 @@ shopSchema.methods.toJSON = function () {
 /** adding full mobile number to response */
 shopSchema.virtual('fullmobileno').get(function () {
     return this.mobileno.country_code + this.mobileno.number
+})
+
+
+
+/** generating shop image url */
+shopSchema.virtual('shop_image_url').get(function () {
+    return `${appConfig.base_url}/${this.shop_image_path.replace('public/', '')}`
 })
 
 
