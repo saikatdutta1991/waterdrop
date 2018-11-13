@@ -5,6 +5,7 @@
  */
 
 var app = require('../app');
+var socketApi = require('../socketio/api')
 var debug = require('debug')('waterboy:server');
 var http = require('http');
 var config = require('../configs/app')
@@ -17,10 +18,11 @@ var port = config.port
 app.set('port', port);
 
 /**
- * Create HTTP server.
+ * Create HTTP server and socket io
  */
 
 var server = http.createServer(app);
+socketApi.io.attach(server);
 
 /**
  * Listen on provided port, on all network interfaces.
