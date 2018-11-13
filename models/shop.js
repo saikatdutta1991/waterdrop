@@ -170,6 +170,9 @@ shopSchema.virtual('fullmobileno').get(function () {
 
 /** generating shop image url */
 shopSchema.virtual('shop_image_url').get(function () {
+    if (!this.shop_image_path) {
+        return ''
+    }
     return `${appConfig.base_url}/${this.shop_image_path.replace('public/', '')}`
 })
 

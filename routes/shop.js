@@ -2,6 +2,7 @@
 const router = require('express').Router();
 const authController = require('../controllers/shop/auth')
 const profileController = require('../controllers/shop/proflle')
+const productController = require('../controllers/shop/product')
 const verifyShopAuthtoken = require('../middlewares/verifyShopAuthtoken')
 /** initializing modules end*/
 
@@ -12,6 +13,11 @@ router.post('/login', authController.doLogin) //shop manual login
 router.use('/', verifyShopAuthtoken)
 router.get('/profile', profileController.getProfile)
 router.post('/upload/shopimage', profileController.uploadShopImage)
+
+
+router.post('/products', productController.addProduct) //add new shop product
+router.get('/products', productController.getProducts) //get shop products
+
 /** authenticated routes end */
 
 
