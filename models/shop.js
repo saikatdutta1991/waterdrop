@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const pointSchema = require('../models/pointSchema')
 const bcrypt = require('bcryptjs')
 const appConfig = require('../configs/app')
 
@@ -9,17 +10,23 @@ let shopSchema = new mongoose.Schema({
         required: [true, "Shop name is required"],
         maxlength: [128, 'Shop name must be between 0-128 characters']
     },
+    address: {
+        type: String,
+        required: [true, 'Shop address is required'],
+        maxlength: [512, 'Shop address must be between 0-512 characters']
+    },
     location: {
-        address: {
-            type: String,
-            required: [true, 'Shop address is required'],
-            maxlength: [512, 'Shop address must be between 0-512 characters']
-        },
-        latitude: {
-            type: Number, required: [true, 'Shop location latitude is required'], default: 0.00000000
-        },
-        longitude: {
-            type: Number, required: [true, 'Shop location longitude is required'], default: 0.00000000
+        type: pointSchema,
+        required: true,
+        validate: {
+            validator: (value) => {
+
+                return Array.isArray(value.coordinates)
+                    && value.coordinates.length == 2
+                    && (value.coordinates[0] !== undefined
+                        && value.coordinates[1] !== undefined)
+            },
+            message: props => 'Invalid coordinates'
         }
     },
     email: {

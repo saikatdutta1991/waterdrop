@@ -66,9 +66,10 @@ exports.doRegister = async function (req, res, next) {
     shop.password = req.body.password
     shop.mobileno.country_code = req.body.mobileno.country_code
     shop.mobileno.number = req.body.mobileno.number
-    shop.location.address = req.body.location.address
-    shop.location.latitude = req.body.location.latitude
-    shop.location.longitude = req.body.location.longitude
+    shop.address = req.body.address
+    shop.location = {
+        coordinates: [req.body.longitude, req.body.latitude]
+    }
 
 
     try {
