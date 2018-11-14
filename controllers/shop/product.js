@@ -2,10 +2,67 @@
  * This controller handles shops registration apis
  */
 
-const ShopModel = require('../../models/shop')
 const ProductModel = require('../../models/product')
 const api = require('../../helpers/api')
 const paging = require('../../helpers/paging')
+
+
+/**
+ * upload product image
+ */
+exports.uploadProductImage = async function (req, res, next) {
+
+    api.productimageStorage(req, res, async function (err) {
+
+        /** if any error occour then send response */
+        if (err || !req.file) {
+            return next(new api.CustomError('file_missing', 'File missing'))
+        }
+
+        try {
+            product = await ProductModel.findOneAndUpdate({ shop_id: req.auth_shop._id, _id: req.params.productId }, { product_image_path: req.file.path }, { new: true });
+        } catch (err) {
+            return next(new api.CustomError('failed', 'Failed to upload', api.formatErrors(err)))
+        }
+
+        res.json(api.createResponse(true, 'success', 'Product image uploaded successfully', {
+            product_image_url: product.product_image_url
+        }))
+
+
+    })
+
+
+
+}
+
+
+
+
+
+
+/**
+ * get single product details by id
+ */
+exports.getProductById = async function (req, res, next) {
+
+    ProductModel.findOne({ shop_id: req.auth_shop._id, _id: req.params.productId })
+        .then(function (product) {
+
+            if (!product) {
+                return res.json(api.createResponse(false, 'failed', 'No product found'))
+            }
+
+            res.json(api.createResponse(true, 'success', 'Product fetched', { product: product }))
+
+        })
+        .catch(function (error) {
+            return res.json(api.createResponse(false, 'failed', 'No product found'))
+        })
+
+}
+
+
 
 
 

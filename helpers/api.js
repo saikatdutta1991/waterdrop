@@ -63,3 +63,17 @@ exports.shopimageStorage = multer({
         }
     })
 }).single('image');
+
+
+/** 
+ * product image destination and file name generation
+ */
+exports.productimageStorage = multer({
+    storage: multer.diskStorage({
+        destination: 'public/uploads/shops/products/images',
+        filename: (req, file, cb) => {
+            var filename = `${file.fieldname}_${Date.now()}_${path.extname(file.originalname)}`
+            cb(null, filename)
+        }
+    })
+}).single('image');

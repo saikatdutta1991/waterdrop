@@ -21,12 +21,12 @@ exports.doLogin = async function (req, res, next) {
 
     /** if shop not found then send error */
     if (!shop) {
-        res.json(api.createResponse(false, 'failed', 'Entered eamil not registered with us'))
+        return res.json(api.createResponse(false, 'failed', 'Entered eamil not registered with us'))
     }
 
     /** verify password with input password */
     if (!ShopModel.verifyPassword(req.body.password, shop.password)) {
-        res.json(api.createResponse(false, 'failed', 'Wrong password entered'))
+        return res.json(api.createResponse(false, 'failed', 'Wrong password entered'))
     }
 
     /** creating auth token */
