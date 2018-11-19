@@ -13,6 +13,8 @@ router.post('/login', authController.doLogin) //shop manual login
 router.use('/', verifyShopAuthtoken)
 router.get('/profile', profileController.getProfile)
 router.post('/upload/shopimage', profileController.uploadShopImage)
+router.post('/open', profileController.openShop)
+router.post('/close', profileController.closeShop)
 
 
 router.post('/products', productController.addProduct) //add new shop product

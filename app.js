@@ -4,6 +4,7 @@ var path = require('path')
 var bodyParser = require("body-parser") //express body parser module
 var cookieParser = require('cookie-parser') //cookie parser module
 var db = require('./configs/database') //database connection setup
+const expressValidator = require('express-validator') //express validator for validtion
 
 
 /** creating express app */
@@ -22,6 +23,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser());
 /** setup body parsers end*/
 
+/** register express validator */
+app.use(expressValidator());
+
 
 /** enable access to public folder through browser */
 app.use(express.static(path.join(__dirname, 'public')));
@@ -31,8 +35,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 /** registering routes */
 var indexRouter = require('./routes/index'); //index routes
 var shopRouter = require('./routes/shop') //shop api routes
+var userRouter = require('./routes/user') //user api routes
 app.use('/', indexRouter);
 app.use('/api/v1/shops', shopRouter);
+app.use('/api/v1/users', userRouter)
 /** registering routes end*/
 
 

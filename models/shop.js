@@ -108,6 +108,10 @@ let shopSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
+    is_opened: {
+        type: Boolean,
+        default: true
+    },
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now }
 })

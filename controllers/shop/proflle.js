@@ -7,6 +7,38 @@ const api = require('../../helpers/api')
 
 
 /**
+ * open shop status
+ */
+exports.openShop = async function (req, res, next) {
+
+    try {
+        var shop = ShopModel.findOneAndUpdate({ _id: req.auth_shop._id }, { is_opened: true }, { new: true }).exec()
+        res.json(api.createResponse(true, 'success', 'Shop opened'))
+    } catch (error) {
+        res.json(api.createResponse(false, 'faliled', 'Shop open failed'))
+    }
+
+}
+
+
+
+/**
+ * close shop status
+ */
+exports.closeShop = async function (req, res, next) {
+    try {
+        var shop = ShopModel.findOneAndUpdate({ _id: req.auth_shop._id }, { is_opened: false }, { new: true }).exec()
+        res.json(api.createResponse(true, 'success', 'Shop closed'))
+    } catch (error) {
+        return next(new api.CustomError('failed', 'Shop close failed', api.formatErrors(error)))
+    }
+}
+
+
+
+
+
+/**
  * upload shop image
  */
 exports.uploadShopImage = function (req, res, next) {

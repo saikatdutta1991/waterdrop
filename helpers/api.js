@@ -3,6 +3,12 @@ const multer = require('multer')
 const path = require('path')
 
 
+exports.unknownerror = function (error) {
+    return this.createResponse(false, 'unkonwn_error', 'Unknown error. Try again')
+}
+
+
+
 /** create formated api json response */
 exports.createResponse = function (success, type, message, data, stackTrace) {
 
@@ -77,3 +83,10 @@ exports.productimageStorage = multer({
         }
     })
 }).single('image');
+
+
+
+/** format express validation errors */
+exports.formatWith = function ({ location, msg, param, value, nestedErrors }) {
+    return msg
+}
