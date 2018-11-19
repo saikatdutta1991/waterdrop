@@ -118,7 +118,7 @@ let shopSchema = new mongoose.Schema({
 
 shopSchema.set('toObject', { virtuals: true });
 shopSchema.set('toJSON', { virtuals: true });
-
+shopSchema.index({ location: '2dsphere' });
 
 
 

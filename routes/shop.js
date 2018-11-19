@@ -3,11 +3,13 @@ const router = require('express').Router();
 const authController = require('../controllers/shop/auth')
 const profileController = require('../controllers/shop/proflle')
 const productController = require('../controllers/shop/product')
+const searchControlller = require('../controllers/shop/search')
 const verifyShopAuthtoken = require('../middlewares/verifyShopAuthtoken')
 /** initializing modules end*/
 
 router.post('/register', authController.doRegister); //shop registration route
 router.post('/login', authController.doLogin) //shop manual login
+router.get('/search', searchControlller.searchShops) //search shops
 
 /** authenticated routes */
 router.use('/', verifyShopAuthtoken)
