@@ -16,6 +16,14 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 /** view engine setup end */
 
+/** cross domain api call */
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
+/** cross domain api call end*/
+
 
 /** setup body parsers */
 app.use(bodyParser.json())
