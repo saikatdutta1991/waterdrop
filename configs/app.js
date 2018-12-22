@@ -1,12 +1,12 @@
 let environment = 'staging'
 
 let stagingConfig = {
-    port: 3000,
+    port: 80,
     dbname: 'waterboy',
     dbhost: '127.0.0.1',
     dbport: 27017,
     jwt_secret: 'secret',
-    base_url: 'http://localhost:3000/',
+    base_url: 'http://localhost:80/',
     email: {
         host: 'smtp.ethereal.email',
         port: 587,
